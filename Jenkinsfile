@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     stages {
-        when { changeset "testchart/*" }
         stage('checkout'){
+            when { changeset "testchart/*" }
             steps{
                 checkout scm
                 cleanWs()
