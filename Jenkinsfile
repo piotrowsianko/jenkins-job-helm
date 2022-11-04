@@ -9,7 +9,6 @@ pipeline {
                 cleanWs()
                 sh 'git clone git@github.com:piotrowsianko/jenkins-job-helm.git .'}
             }
-        }
         stage('Input Helm version number'){
             when { changeset "testchart/*"} // Name of folder with Helm Charts to search for changes in
             steps{
@@ -35,7 +34,6 @@ pipeline {
                 """
             }
         }
-        
-        }
     }
+}
  
