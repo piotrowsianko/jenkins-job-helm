@@ -17,9 +17,11 @@ pipeline {
             steps{
                 script {
                     env.CHART_VERSION = input message: 'Please enter valid HELM CHART version',
-                                        parameters: [string(defaultValue: '',
+                                        parameters: [validatingString
+                                                    (defaultValue: '',
                                                     description: '',
-                                                    name: 'Version')]
+                                                    name: 'Version',
+                                                    regex: '\\d.*\\d.\\d')]
                 }
             }
         }
