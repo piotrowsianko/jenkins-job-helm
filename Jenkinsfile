@@ -16,13 +16,10 @@ pipeline {
             when { changeset "testchart/*"} // Name of folder with Helm Charts to search for changes in
             steps{
                 script {
-                    def inputVersion
-
-                    // Get the input
-                    def userInput = input(
-                            id: 'userInput', message: 'Enter version number of Helm Chart:?')
-                    inputVersion = userInput.Version?:''
-                    export CHART_VERSION=${inputVersion}
+                    env.CHART_VERSION = input message: 'Please enter valid HELM CHART version',
+                                        parameters: [string(defaultValue: '',
+                                                    description: '',
+                                                    name: 'Version')]
                 }
                 sh """sed -i 's/^\\(version: \\).*\$/\\1"${CHART_VERSION}"/' testchart/Chart.yaml"""
             }
