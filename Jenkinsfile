@@ -33,7 +33,6 @@ pipeline {
             }
         }
         stage('Helm'){
-            dependsOn('Input Helm version number')
             when { changeset "testchart/*"} // Name of folder with Helm Charts to search for changes in
             steps{
                 sh '''
