@@ -1,17 +1,9 @@
 pipeline {
     agent any
     triggers{
-        pollSCM('H/2 * * * *')
+        pollSCM('* * * * *')
     }
     stages {
-        stage('checkout'){
-            when { changeset "testchart/*" } // Name of folder with Helm Charts to search for changes in
-            steps{
-                checkout scm
-                cleanWs()
-                sh 'git clone git@github.com:piotrowsianko/jenkins-job-helm.git .'} //test step
-            }
-
         stage('Input Helm version number'){
             when { changeset "testchart/*"} // Name of folder with Helm Charts to search for changes in
             steps{
@@ -20,8 +12,7 @@ pipeline {
                                         parameters: [string(defaultValue: '',
                                                     description: '',
                                                     name: 'Version',
-                                                    regex: '\\d.*\\d.\\d',
-                                                    failedValidationMessage: "Validation failed! Wrong format of version numbers")]
+                                                    )]
                 }
             }
         }
