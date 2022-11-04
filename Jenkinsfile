@@ -15,17 +15,16 @@ pipeline {
         stage('Input Helm version number'){
             when { changeset "testchart/*"} // Name of folder with Helm Charts to search for changes in
             steps{
-                script{
+                script {
                     def inputVersion
 
                     // Get the input
                     def userInput = input(
                             id: 'userInput', message: 'Enter version number of Helm Chart:?',
                             parameters: [
-
                                     string(defaultValue: 'None',
                                             description: 'Number of HELM CHART version',
-                                            name: 'Version'),
+                                            name: 'Version')
                             ])
                     inputVersion = userInput.Version?:''
                     export CHART_VERSION=${inputVersion}
@@ -34,6 +33,7 @@ pipeline {
             }
         }
         stage('Helm'){
+            dependsOn('Input Helm version number')
             when { changeset "testchart/*"} // Name of folder with Helm Charts to search for changes in
             steps{
                 sh '''
