@@ -17,7 +17,7 @@ pipeline {
                 sh '''
                 export GOOGLE_APPLICATION_CREDENTIALS=/mnt/c/Users/piotr.owsianko/Downloads/my-test-project-owspio-4d03fcfd448c.json
                 helm package testchart 
-                gcloud auth application-default print-access-token | helm registry login -u oauth2accesstoken --password-stdin https://europe-central2-docker.pkg.dev/my-test-project-owspio/helm-chart-repo
+                cat /mnt/c/Users/piotr.owsianko/Downloads/my-test-project-owspio-4d03fcfd448c.json | helm registry login -u _json_key --password-stdin https://europe-central2-docker.pkg.dev
                 helm push testchart*.tgz oci://europe-central2-docker.pkg.dev/my-test-project-owspio/helm-chart-repo
                 '''
             }
