@@ -20,12 +20,7 @@ pipeline {
 
                     // Get the input
                     def userInput = input(
-                            id: 'userInput', message: 'Enter version number of Helm Chart:?',
-                            parameters: [
-                                    string(defaultValue: 'None',
-                                            description: 'Number of HELM CHART version',
-                                            name: 'Version')
-                            ])
+                            id: 'userInput', message: 'Enter version number of Helm Chart:?')
                     inputVersion = userInput.Version?:''
                     export CHART_VERSION=${inputVersion}
                 }
