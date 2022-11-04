@@ -21,12 +21,12 @@ pipeline {
                                                     description: '',
                                                     name: 'Version')]
                 }
-                sh """sed -i 's/^\\(version: \\).*\$/\\1"${CHART_VERSION}"/' testchart/Chart.yaml"""
             }
         }
         stage('Helm'){
             when { changeset "testchart/*"} // Name of folder with Helm Charts to search for changes in
             steps{
+                sh """sed -i 's/_CHART_VERSION_/${CHART_VERSION}' testchart/Chart.yaml"""
                 sh '''
                 export GOOGLE_APPLICATION_CREDENTIALS=/mnt/c/Users/piotr.owsianko/Downloads/my-test-project-owspio-4d03fcfd448c.json
                 helm package testchart 
