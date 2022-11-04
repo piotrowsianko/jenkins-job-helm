@@ -6,8 +6,8 @@ pipeline {
     stages {
         stage('Input Helm version number'){
             when { changeset "testchart/*"} // Name of folder with Helm Charts to search for changes in
-            cleanWs()
             steps{
+                cleanWs()
                 script {
                     env.CHART_VERSION = input message: 'Please enter valid HELM CHART version',
                                         parameters: [string(defaultValue: '',
