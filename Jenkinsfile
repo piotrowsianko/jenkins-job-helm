@@ -4,10 +4,15 @@ pipeline {
         pollSCM('* * * * *') //Polling SCM every minute, change first Asterix to H/2 to poll every 2 minutes
     }
     stages {
+        stage('Clean Workspace and re-download Git Repo'){
+            steps{
+                cleanWs()
+                sh 'git clone git@github.com:piotrowsianko/jenkins-job-helm.git .'}
+            }
+        }
         stage('Input Helm version number'){
             when { changeset "testchart/*"} // Name of folder with Helm Charts to search for changes in
             steps{
-                cleanWs()
                 script {
                     env.CHART_VERSION = input message: 'Please enter valid HELM CHART version',
                                         parameters: [string(defaultValue: '',
