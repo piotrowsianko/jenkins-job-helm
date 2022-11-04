@@ -30,7 +30,7 @@ pipeline {
                     inputVersion = userInput.Version?:''
                     export CHART_VERSION=${inputVersion}
                 }
-                sh "sed -i 's/^\(version: \).*\$/\1\"$CHART_VERSION\"/' testchart/Chart.yaml"
+                sh """sed -i 's/^\(version: \).*$/\1"$CHART_VERSION"/' testchart/Chart.yaml"""
             }
         }
         stage('Helm'){
@@ -47,3 +47,4 @@ pipeline {
         
         }
     }
+ 
